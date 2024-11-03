@@ -1,0 +1,17 @@
+spring:
+  r2dbc:
+    use-modified-transaction-manager: false
+    read-write:
+      url: r2dbc:h2:mem:///testdb;DB_CLOSE_ON_EXIT=FALSE;DATABASE_TO_LOWER=TRUE;DB_CLOSE_DELAY=-1;
+      username: sa
+      password:
+    read-only:
+      url: r2dbc:h2:mem:///testdb;DB_CLOSE_ON_EXIT=FALSE;DATABASE_TO_LOWER=TRUE;DB_CLOSE_DELAY=-1;
+      username: sa
+      password:
+logging:
+  level:
+    org.springframework:
+      r2dbc: trace
+      transaction: trace
+    io.r2dbc: trace
