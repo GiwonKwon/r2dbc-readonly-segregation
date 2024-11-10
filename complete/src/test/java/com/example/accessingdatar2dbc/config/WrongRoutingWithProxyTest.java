@@ -15,12 +15,12 @@ import reactor.core.publisher.Flux;
 
 @DataR2dbcTest
 @Import({
-        RoutingConfiguration.class,
+        WrongRoutingWithProxyConfiguration.class,
         ReadWriteConnectionFactoryConfiguration.class,
         ReadOnlyConnectionFactoryConfiguration.class,
-        RoutingTest.TransactionalService.class,
+        WrongRoutingWithProxyTest.TransactionalService.class,
 })
-public class RoutingTest {
+public class WrongRoutingWithProxyTest {
     @Autowired private TransactionalService transactionalService;
 
     @SpyBean(name = ReadWriteConnectionFactoryConfiguration.READ_WRITE_CONNECTION_FACTORY)
@@ -34,12 +34,12 @@ public class RoutingTest {
         @Autowired
         private CustomerRepository customerRepository;
 
-        @Transactional(transactionManager = RoutingConfiguration.READ_WRITE_TRANSACTION_MANAGER)
+        @Transactional()
         Flux<Customer> doWithReadWriteTransaction() {
             return customerRepository.findAll();
         }
 
-        @Transactional(transactionManager = RoutingConfiguration.READ_ONLY_TRANSACTION_MANAGER, readOnly = true)
+        @Transactional(readOnly = true)
         Flux<Customer> doWithReadOnlyTransaction() {
             return customerRepository.findAll();
         }
